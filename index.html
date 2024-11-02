@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remote Game Controller</title>
+</head>
+<body>
+    <h1>Control the Game</h1>
+    <script>
+        const ws = new WebSocket('wss://YOUR_VERCEL_WEBSOCKET_URL');
+
+        // Send keyboard events
+        document.addEventListener('keydown', (e) => {
+            ws.send(JSON.stringify({ type: 'keydown', key: e.key }));
+        });
+
+        document.addEventListener('keyup', (e) => {
+            ws.send(JSON.stringify({ type: 'keyup', key: e.key }));
+        });
+
+        // Send mouse events
+        document.addEventListener('mousemove', (e) => {
+            ws.send(JSON.stringify({ type: 'mousemove', x: e.clientX, y: e.clientY }));
+        });
+
+        document.addEventListener('click', (e) => {
+            ws.send(JSON.stringify({ type: 'click', button: e.button }));
+        });
+    </script>
+</body>
+</html>
